@@ -43,8 +43,9 @@ abstract class Item {
 		}
 	}
 	
+	//There is simpler ways to determine if items are equal but this way is comprehensive and rules out edge cases.
 	public boolean equals(Item item ) {
-		return (this.age == item.getAge() && this.matureAge == item.getMatureAge() && this.deathAge == item.getDeathAge() && this.getValue() == item.getValue())
+		return (this.age == item.getAge() && this.matureAge == item.getMatureAge() && this.deathAge == item.getDeathAge() && this.getValue() == item.getValue());
 	}
 	
 	public abstract String toString();
