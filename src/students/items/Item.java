@@ -1,10 +1,10 @@
 package students.items;
 
 abstract class Item {
-	private int age;
-	private int matureAge;
-	private int deathAge;
-	private int value;
+	protected int age;
+	protected int matureAge;
+	protected int deathAge;
+	protected int value;
 	
 	public Item() {
 		this.age = 0;
@@ -48,5 +48,6 @@ abstract class Item {
 		return (this.age == item.getAge() && this.matureAge == item.getMatureAge() && this.deathAge == item.getDeathAge() && this.getValue() == item.getValue());
 	}
 	
+	@Override
 	public abstract String toString();
 }
