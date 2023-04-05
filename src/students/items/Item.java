@@ -1,6 +1,6 @@
 package students.items;
 
-abstract class Item {
+public abstract class Item {
 	protected int age;
 	protected int matureAge;
 	protected int deathAge;
