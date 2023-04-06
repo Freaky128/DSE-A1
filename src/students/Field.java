@@ -45,6 +45,18 @@ public class Field {
 		}
 	}
 	
+	public int getValue() {
+		int total = 0;
+		
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				total += field[i][j].getValue();			
+			}
+		}
+		
+		return total;
+	}
+	
 	@Override
 	public String toString() {
 		String fieldStr = new String();
