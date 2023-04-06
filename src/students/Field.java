@@ -34,6 +34,17 @@ public class Field {
 		}
 	}
 	
+	public boolean plant(int x, int y, Item item) {
+		//may need to move soil check up a level
+		if (field[y][x].equals(new Soil())) {
+			field[y][x] = item;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		String fieldStr = new String();
