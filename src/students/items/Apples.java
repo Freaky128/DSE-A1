@@ -13,6 +13,14 @@ public class Apples extends Food{
 		this.value = 3;
 	}
 	
+	public Apples(Item Apple) {
+		super(Apple);
+	}
+	
+	public Item copy() {
+		return new Apples(this);
+	}
+	
 	public String toString() {
 		if (this.age <  this.matureAge) {
 			return "a";

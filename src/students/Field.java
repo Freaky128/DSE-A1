@@ -34,6 +34,11 @@ public class Field {
 		}
 	}
 	
+	public Item get(int x, int y) {
+		Item clone = field[y][x].copy();
+		return clone;
+	}
+	
 	public boolean plant(int x, int y, Item item) {
 		//may need to move soil check up a level
 		if (field[y][x].equals(new Soil())) {

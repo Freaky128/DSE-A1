@@ -13,6 +13,14 @@ public class Grain extends Food{
 		this.value = 2;
 	}
 	
+	public Grain(Item Grain) {
+		super(Grain);
+	}
+	
+	public Item copy() {
+		return new Grain(this);
+	}
+	
 	public String toString() {
 		if (this.age <  this.matureAge) {
 			return "g";

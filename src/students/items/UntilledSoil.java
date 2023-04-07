@@ -7,6 +7,14 @@ public class UntilledSoil extends Item{
 		this.value = -1;
 	}
 	
+	public UntilledSoil(Item untilledSoil) {
+		super(untilledSoil);
+	}
+	
+	public Item copy() {
+		return new UntilledSoil(this);
+	}
+	
 	@Override
 	public void tick() {}
 	

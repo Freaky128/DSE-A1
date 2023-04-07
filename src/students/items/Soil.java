@@ -7,6 +7,14 @@ public class Soil extends Item{
 		this.value = 0;
 	}
 	
+	public Soil(Item soil) {
+		super(soil);
+	}
+	
+	public Item copy() {
+		return new Soil(this);
+	}
+	
 	@Override
 	public void tick() {}
 	

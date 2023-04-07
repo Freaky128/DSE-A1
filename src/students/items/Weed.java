@@ -7,6 +7,14 @@ public class Weed extends Item{
 		this.value = -1;
 	}
 	
+	public Weed(Item weed) {
+		super(weed);
+	}
+	
+	public Item copy() {
+		return new Weed(this);
+	}
+	
 	@Override
 	public void tick() {}
 	

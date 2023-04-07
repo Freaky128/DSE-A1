@@ -10,6 +10,13 @@ public abstract class Item {
 		this.age = 0;
 	}
 	
+	public Item(Item item) {
+		this.age = item.age;
+		this.matureAge = item.matureAge;
+		this.deathAge = item.deathAge;
+		this.value = item.value;
+	}
+	
 	public int getAge() {
 		return this.age;
 	}
@@ -47,6 +54,8 @@ public abstract class Item {
 	public boolean equals(Item item ) {
 		return (this.age == item.getAge() && this.matureAge == item.getMatureAge() && this.deathAge == item.getDeathAge() && this.getValue() == item.getValue());
 	}
+	
+	public abstract Item copy();
 	
 	@Override
 	public abstract String toString();
