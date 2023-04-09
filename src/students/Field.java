@@ -3,48 +3,50 @@ import students.items.*;
 import java.util.Random;
 
 public class Field {
-	private Item[][] field; 
+	private Item[][] field; // 2D item array used to represent the field
 	
 	public Field(int height, int width){
 		this.field = new Item[height][width];
 		
 		for(int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				field[i][j] = new Soil();
+				
+				this.field[i][j] = new Soil();
 			}
 		}
 	}
 	
 	public void tick(int balance) {
 		Random rand = new Random();
-		for (int i = 0; i < field.length; i++) {
-			for (int j = 0; j < field[i].length; j++) {
+		for (int i = 0; i < this.field.length; i++) {
+			for (int j = 0; j < this.field[i].length; j++) {
 				
-				if (field[i][j].equals(new Soil())) { // this is correct in terms of the assignment spec wording
+				if (this.field[i][j].equals(new Soil())) { // this is correct in terms of the assignment spec wording // spawns weeds
 					if (rand.nextInt(100) < 20) {	  // however it makes the game quite hard as the field is overrun
-						field[i][j] = new Weed();	  // with weeds after 5-7 turns
+						this.field[i][j] = new Weed();	  // with weeds after 5-7 turns
 					}
 				}
 				
-				if (field[i][j] instanceof Seeder || field[i][j] instanceof PlowSeeder || field[i][j] instanceof PlowSeederF) {
-					field = field[i][j].tick(this.field, balance);
+				if (this.field[i][j] instanceof Seeder || this.field[i][j] instanceof PlowSeeder || this.field[i][j] instanceof PlowSeederF) { // call various overloads of items tick methods
+					this.field = this.field[i][j].tick(this.field, balance);
 				}
-				else if (field[i][j] instanceof Machinery) {
-					field = field[i][j].tick(this.field);
+				else if (this.field[i][j] instanceof Machinery) {
+					this.field = this.field[i][j].tick(this.field);
 				}
 				else {
-					field[i][j].tick();
+					this.field[i][j].tick();
 				}
 				
-				if (field[i][j].died()) {
-					field[i][j] = new UntilledSoil();
+				if (this.field[i][j].died()) {
+					this.field[i][j] = new UntilledSoil();
 				}
 			
 			}
 		}
 		
-		for (int i = 0; i < field.length; i++) {
+		for (int i = 0; i < field.length; i++) { // as the turn has "ended" the ticked flag needs to be reset (used for machinery) 
 			for (int j = 0; j < field[i].length; j++) {
+				
 				this.field[i][j].clearTicked();
 			}
 		}
@@ -68,6 +70,7 @@ public class Field {
 		
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
+				
 				total += field[i][j].getValue();			
 			}
 		}
@@ -85,6 +88,7 @@ public class Field {
 		
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
+				
 				if (field[i][j].equals(new Soil())) {
 					soil++;
 				}
@@ -104,7 +108,7 @@ public class Field {
 		}
 		
 		sumStr += "\n";
-		sumStr += String.format("%-15s", "Apples:");
+		sumStr += String.format("%-15s", "Apples:"); // uses formatting to line up summary elements 
 		sumStr += apples + "\n";
 		sumStr += String.format("%-15s", "Grain:");
 		sumStr += grain + "\n";
@@ -122,7 +126,7 @@ public class Field {
 		return sumStr;
 	}
 	
-	public int getCharge() {
+	public int getCharge() { // used to get the amount the players balance should change by from machine actions
 		int sum = 0;
 		
 		for (int i = 0; i < field.length; i++) {
@@ -143,17 +147,20 @@ public class Field {
 		
 		fieldStr += "\n  ";
 		
-		for (int i = 1; i <= field[0].length; i++) {
+		for (int i = 1; i <= field[0].length; i++) { // adds the numbers on top of the field
 			fieldStr += String.format("%-2d", i);
 		}
 		
 		fieldStr += "\n";
 		
 		for(int i = 0; i < field.length; i++) {
-			fieldStr += String.format("%-2d", i + 1);
+			
+			fieldStr += String.format("%-2d", i + 1); // adds the numbers on the left side of the field
+			
 			for (int j = 0; j < field[i].length; j++) {
-				fieldStr += String.format("%-2s", field[i][j]);
+				fieldStr += String.format("%-2s", field[i][j]); // adds the items to the field string
 			}
+			
 			fieldStr += "\n";
 		}
 		

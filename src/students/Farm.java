@@ -7,13 +7,13 @@ import java.util.regex.Pattern;
 public class Farm {
 	private Field field;
 	private int balance;
-	private boolean running = true;
-	private int fieldX;
-	private int fieldY;
+	private boolean running = true; // main control loop variable
+	private int fieldX; // field x dimension
+	private int fieldY; // field y dimension
 	
 	public Farm(int fieldWidth, int fieldHeight, int startingFunds)
 	{
-		this.field = new Field(fieldHeight, fieldWidth);
+		this.field = new Field(fieldHeight, fieldWidth); // creates field
 		this.balance = startingFunds;
 		this.fieldX = fieldWidth;
 		this.fieldY = fieldHeight;
@@ -27,8 +27,9 @@ public class Farm {
 		int y;
 		System.out.println("Welcome to Sim Farm!\n");
 		
-		while (running) {
-			System.out.println(this.field);
+		while (running) { // main game loop
+			
+			System.out.println(this.field); // prints menu options
 			System.out.println("Bank Balance: $" + this.balance + "\n");
 			System.out.println("Enter your next action:");
 			System.out.println("  t x y: till\n"
@@ -39,17 +40,17 @@ public class Farm {
 								+ "  w: wait\n"
 								+ "  q: quit\n");
 			
-			while (true) {
+			while (true) { // main menu input validation loop
 				try {
-					command = input.next();
+					command = input.next(); // sets main command
 					
-					if (command.length() > 1) {
+					if (command.length() > 1) { // checks one character is specified
 						throw new InvalidInput("You must input t,h,p,m,s,w or q\n");
 					}
-					else if(Pattern.matches("[^thpmswq]", command)) {
+					else if(Pattern.matches("[^thpmswq]", command)) { // check character is an expected option
 						throw new InvalidInput("You must input t,h,p,m,s,w or q\n");
 					}
-					else if(Pattern.matches("[^thp]", command)) {
+					else if(Pattern.matches("[^thp]", command)) { // checks if the command needs coordinates or not
 						
 						if (command.equals("s")) {
 							this.summary();
@@ -65,10 +66,10 @@ public class Farm {
 						break;
 					}
 					
-					x = input.nextInt();
+					x = input.nextInt(); // sets coordinates
 					y = input.nextInt();
 					
-					if (x > this.fieldX || x < 1 || y > this.fieldY || y < 1) {
+					if (x > this.fieldX || x < 1 || y > this.fieldY || y < 1) { // checks coordinates are in range
 						throw new InvalidInput("Entered coordinates are out of range\n");
 					}
 					else {
@@ -90,23 +91,23 @@ public class Farm {
 				}
 				catch(InvalidInput e) {
 					System.out.println("Invalid input: " + e.message);
-					input.nextLine();
+					input.nextLine(); // Effectively clears in buffer
 				}
-				catch(InputMismatchException e) {
+				catch(InputMismatchException e) { // exception is thrown by scanner if next token isn't an int
 					System.out.println("Invalid input: you must enter correct coordinates\n");
-					input.nextLine();
+					input.nextLine(); // Effectively clears in buffer
 				}
 			}
 			
-			this.field.tick(this.balance);
-			this.balance += this.field.getCharge();
+			this.field.tick(this.balance); // after play action is down the field is ticked
+			this.balance += this.field.getCharge(); // updates player balance from machinery actions
 		}
 		
-		System.out.println("Thanks for playing!");
+		System.out.println("Thanks for playing!"); // quit message
 	}
 	
 	public void till(int x, int y) throws InvalidInput{  // considered making it cost money to till weed or untilledSoil
-		if (this.field.get(x, y) instanceof Machinery) { // however it makes the game super hard
+		if (this.field.get(x, y) instanceof Machinery) { // however it makes the game super hard // makes machinery untillable
 			throw new InvalidInput("x:" + (x + 1) + " y:" + (y + 1) + " is not tillable\n");
 		}
 		else {
@@ -117,7 +118,7 @@ public class Farm {
 	}
 	
 	public void harvest(int x, int y) throws InvalidInput{
-		if (this.field.get(x, y) instanceof Food) {			
+		if (this.field.get(x, y) instanceof Food) {	// makes sure only food is harvested		
 			int value = this.field.get(x, y).getValue();
 			this.balance += value;
 			
@@ -140,10 +141,10 @@ public class Farm {
 		
 		command = input.next();
 		
-		if (command.length() > 1) {
+		if (command.length() > 1) { // checks input is a single character
 			throw new InvalidInput("You must input a or g\n");
 		}
-		else if(Pattern.matches("[^ag]", command)) {
+		else if(Pattern.matches("[^ag]", command)) { // checks input is an expected character
 			throw new InvalidInput("You must input a or g\n");
 		}
 		else {
@@ -182,7 +183,7 @@ public class Farm {
 		System.out.println(this.field.getSummary());
 	}
 	
-	public void machinery() throws InvalidInput{
+	public void machinery() throws InvalidInput{ // responsible for the machinery menu
 		Scanner input = new Scanner(System.in);
 		String command;
 		int x;
@@ -202,7 +203,7 @@ public class Farm {
 			
 			command = input.next();
 			
-			if (command.length() > 1) {
+			if (command.length() > 1) { // input validation
 				throw new InvalidInput("You must input w,p,s,h,c,+ or i\n");
 			}
 			else if(Pattern.matches("[^wpshc+i]", command)) {
@@ -211,11 +212,11 @@ public class Farm {
 			else if (Pattern.matches("[wpshc+]", command)){
 				System.out.println("\nEnter start position x y and direction u,d,l,r");
 				
-				x = input.nextInt();
+				x = input.nextInt(); // sets inputs
 				y = input.nextInt();
 				dir = input.next();
 				
-				if (x > this.fieldX || x < 1 || y > this.fieldY || y < 1) {
+				if (x > this.fieldX || x < 1 || y > this.fieldY || y < 1) { // more input validation
 					throw new InvalidInput("Entered coordinates are out of range\n");
 				}
 				else if (dir.length() > 1) {
@@ -225,7 +226,7 @@ public class Farm {
 					throw new InvalidInput("You must input u,d,l or r\n");
 				}
 				else {
-					if (command.equals("w")) {
+					if (command.equals("w")) { // creates the specified machines
 						if(this.balance >= 5) {
 							this.field.plant(x - 1, y - 1, new Sprayer(dir, x - 1, y - 1, field.get(x - 1, y - 1)));
 							this.balance -= 5;
@@ -322,7 +323,7 @@ public class Farm {
 				
 				break;
 			}
-			else {
+			else { // prints machine information
 				System.out.println("\nMachinery infromation\n"
 						+ "Machines are items that can be bought to help your farming efforts\n"
 						+ "When purchased machines are given a starting position (x, y) and\n"
