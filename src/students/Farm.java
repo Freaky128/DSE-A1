@@ -237,7 +237,7 @@ public class Farm {
 						
 					}
 					else if(command.equals("p")) {
-						if(this.balance >= 5) {
+						if(this.balance >= 10) {
 							this.field.plant(x - 1, y - 1, new Plow(dir, x - 1, y - 1));
 							this.balance -= 10;
 						}
@@ -257,7 +257,7 @@ public class Farm {
 							throw new InvalidInput("You must input a or g\n");
 						}
 						else {
-							if(this.balance >= 5) {
+							if(this.balance >= 10) {
 								this.field.plant(x - 1, y - 1, new Seeder(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
 								this.balance -= 10;
 							}
@@ -268,7 +268,7 @@ public class Farm {
 						}
 					}
 					else if(command.equals("h")) {
-						if(this.balance >= 5) {
+						if(this.balance >= 10) {
 							this.field.plant(x - 1, y - 1, new Harvester(dir, x - 1, y - 1, field.get(x - 1, y - 1)));
 							this.balance -= 10;
 						}
@@ -288,7 +288,7 @@ public class Farm {
 							throw new InvalidInput("You must input a or g\n");
 						}
 						else {
-							if(this.balance >= 5) {
+							if(this.balance >= 15) {
 								this.field.plant(x - 1, y - 1, new PlowSeeder(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
 								this.balance -= 15;
 							}
@@ -309,7 +309,7 @@ public class Farm {
 							throw new InvalidInput("You must input a or g\n");
 						}
 						else {
-							if(this.balance >= 5) {
+							if(this.balance >= 20) {
 								this.field.plant(x - 1, y - 1, new PlowSeederF(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
 								this.balance -= 20;
 							}
