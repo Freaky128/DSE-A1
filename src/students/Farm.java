@@ -180,6 +180,7 @@ public class Farm {
 		int x;
 		int y;
 		String dir;
+		String seed;
 		
 		while(true) {
 		
@@ -218,6 +219,23 @@ public class Farm {
 				else {
 					if (command.equals("w")) {
 						this.field.plant(x - 1, y - 1, new Sprayer(dir, x - 1, y - 1, field.get(x - 1, y - 1)));
+					}
+					else if(command.equals("p")) {
+						this.field.plant(x - 1, y - 1, new Plow(dir, x - 1, y - 1));
+					}
+					else if(command.equals("s")) {
+						System.out.println("\nEnter seed type a or g\n");
+						seed = input.next();
+						
+						if (command.length() > 1) {
+							throw new InvalidInput("You must input a or g\n");
+						}
+						else if(Pattern.matches("[^ag]", command)) {
+							throw new InvalidInput("You must input a or g\n");
+						}
+						else {
+							
+						}
 					}
 				}
 				
