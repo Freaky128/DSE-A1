@@ -59,6 +59,10 @@ public abstract class Item {
 		return (this.age == item.getAge() && this.matureAge == item.getMatureAge() && this.deathAge == item.getDeathAge() && this.getValue() == item.getValue());
 	}
 	
+	public void clearTicked() {
+		
+	}
+	
 	public abstract Item copy();
 	
 	@Override

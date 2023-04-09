@@ -34,6 +34,7 @@ public class Farm {
 			System.out.println("  t x y: till\n"
 								+ "  h x y: harvest\n"
 								+ "  p x y: plant\n"
+								+ "  m: machinery\n"
 								+ "  s: field summary\n"
 								+ "  w: wait\n"
 								+ "  q: quit\n");
@@ -43,10 +44,10 @@ public class Farm {
 					command = input.next();
 					
 					if (command.length() > 1) {
-						throw new InvalidInput("You must input t,h,p,s,w or q\n");
+						throw new InvalidInput("You must input t,h,p,m,s,w or q\n");
 					}
-					else if(Pattern.matches("[^thpswq]", command)) {
-						throw new InvalidInput("You must input t,h,p,s,w or q\n");
+					else if(Pattern.matches("[^thpmswq]", command)) {
+						throw new InvalidInput("You must input t,h,p,m,s,w or q\n");
 					}
 					else if(Pattern.matches("[^thp]", command)) {
 						
@@ -55,6 +56,9 @@ public class Farm {
 						}
 						else if(command.equals("q")) {
 							this.running = false;
+						}
+						else if(command.equals("m")) {
+							this.machinery();
 						}
 						
 						input.nextLine();
@@ -168,6 +172,80 @@ public class Farm {
 	
 	public void summary() {
 		System.out.println(this.field.getSummary());
+	}
+	
+	public void machinery() throws InvalidInput{
+		Scanner input = new Scanner(System.in);
+		String command;
+		int x;
+		int y;
+		String dir;
+		
+		while(true) {
+		
+			System.out.println("Machinery\n (press i for help)\n\n"
+					+ " - 'w' to buy a weed sprayer for $5\n"
+					+ " - 'p' to buy a plow for $10\n"
+					+ " - 's' to buy a seeder for $10\n"
+					+ " - 'h' to buy a harvester for $10\n"
+					+ " - 'c' to buy a plow seeder for $15\n"
+					+ " - '+' to buy a plow seeder with fertiliser cart for $20\n");
+			
+			command = input.next();
+			
+			if (command.length() > 1) {
+				throw new InvalidInput("You must input w,p,s,h,c,+ or i\n");
+			}
+			else if(Pattern.matches("[^wpshc+i]", command)) {
+				throw new InvalidInput("You must input w,p,s,h,c,+ or i\n");
+			}
+			else if (Pattern.matches("[wpshc+]", command)){
+				System.out.println("\nEnter start position x y and direction u,d,l,r");
+				
+				x = input.nextInt();
+				y = input.nextInt();
+				dir = input.next();
+				
+				if (x > this.fieldX || x < 1 || y > this.fieldY || y < 1) {
+					throw new InvalidInput("Entered coordinates are out of range\n");
+				}
+				else if (dir.length() > 1) {
+					throw new InvalidInput("You must input u,d,l or r\n");
+				}
+				else if(Pattern.matches("[^udlr]", dir)) {
+					throw new InvalidInput("You must input u,d,l or r\n");
+				}
+				else {
+					if (command.equals("w")) {
+						this.field.plant(x - 1, y - 1, new Sprayer(dir, x - 1, y - 1, field.get(x - 1, y - 1)));
+					}
+				}
+				
+				break;
+			}
+			else {
+				System.out.println("\nMachinery infromation\n"
+						+ "Machines are items that can be bought to help your farming efforts\n"
+						+ "When purchased machines are given a starting position (x, y) and\n"
+						+ "a direction (u for up, d for down, r for right and l for left).\n"
+						+ "Once bought, each turn a machine will conduct an action and move\n"
+						+ "one space in the specified direction. A machine action doesn't\n"
+						+ "count as your turn. A machine will do this untill it has moved off\n"
+						+ "the field.\n"
+						+ "'w' - weed sprayer: Kills weeds in its path leaving untilled soil behind.\n"
+						+ "	 Doesn't kill crops\n"
+						+ "'p' - Plow: Turns everything in its path into soil including crops.\n"
+						+ "'s' - Seeder: Plants specified crop in soil it passes over.\n"
+						+ "	 Charges for each seed and will be destroyed if you can't afford\n"
+						+ "	 more seeds\n"
+						+ "'h' - Harvester: Will harvest everything in its path including weeds\n"
+						+ "	 Harvested weeds incur a cost of $1. Leaves untilled soil behind\n"
+						+ "'c' - Plow seeder: Plants specified crop in everything it passes over\n"
+						+ "'+' - Plow seeder with fertiliser cart: Same as plow seeder except crops\n"
+						+ "	 it plants will mature quicker.\n");
+			}
+		}
+		
 	}
 	
 }

@@ -4,6 +4,7 @@ public abstract class Machinery extends Item{
 	protected String direction;
 	protected int xPos;
 	protected int yPos;
+	protected boolean ticked = false;
 	
 	public Machinery(String dir, int x, int y) {
 		super();
@@ -19,6 +20,7 @@ public abstract class Machinery extends Item{
 		this.direction = machine.direction;
 		this.xPos = machine.xPos;
 		this.yPos = machine.yPos;
+		this.ticked = machine.ticked;
 	}
 	
 	public int newXPos() {
@@ -43,6 +45,11 @@ public abstract class Machinery extends Item{
 		else {
 			return this.yPos;
 		}
+	}
+	
+	@Override
+	public void clearTicked() {
+		this.ticked = false;
 	}
 	
 }
