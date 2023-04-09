@@ -2,8 +2,6 @@ package students.items;
 
 public class Apples extends Food{
 	private static int genNum = 0;
-	//not sure this should be stored here
-	private static int cost = 2;
 	
 	public Apples() {
 		super();
