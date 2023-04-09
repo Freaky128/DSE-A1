@@ -33,6 +33,10 @@ public abstract class Item {
 		this.age += 1;
 	}
 	
+	public Item[][] tick(Item[][] field) {
+		return field;
+	}
+	
 	public void setAge(int age) {
 		this.age = age;
 	}

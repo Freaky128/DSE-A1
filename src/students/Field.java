@@ -19,7 +19,13 @@ public class Field {
 		Random rand = new Random();
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
-				field[i][j].tick();
+				
+				if (field[i][j] instanceof Machinery) {
+					field = field[i][j].tick(this.field);
+				}
+				else {
+					field[i][j].tick();
+				}
 				
 				if (field[i][j].died()) {
 					field[i][j] = new UntilledSoil();
@@ -27,7 +33,7 @@ public class Field {
 				
 				if (field[i][j].equals(new Soil())) { // this is correct in terms of the assignment spec wording
 					if (rand.nextInt(100) < 20) {	  // however it makes the game quite hard as the field is overrun
-						field[i][j] = new Weed();	  // with weeds after 6-7 turns
+						field[i][j] = new Weed();	  // with weeds after 5-7 turns
 					}
 				}
 			}
