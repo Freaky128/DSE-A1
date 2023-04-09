@@ -1,13 +1,14 @@
 package students.items;
 
-public abstract class Machinery extends Item{
-	protected String direction;
+public abstract class Machinery extends Item{ // base class of all machines
+	protected String direction; // direction the machines will travel across the field
 	protected int xPos;
 	protected int yPos;
-	protected boolean ticked = false;
+	protected boolean ticked = false; // indicates if this machine has already been ticked this turn
 	
-	public Machinery(String dir, int x, int y) {
+	public Machinery(String dir, int x, int y) { // default constructor
 		super();
+		this.value = 0;
 		this.direction = dir;
 		this.matureAge = -3;
 		this.deathAge = 1;
@@ -15,7 +16,7 @@ public abstract class Machinery extends Item{
 		this.yPos = y;
 	}
 	
-	public Machinery(Machinery machine) {
+	public Machinery(Machinery machine) { // copy constructor
 		super(machine);
 		this.direction = machine.direction;
 		this.xPos = machine.xPos;
@@ -23,7 +24,12 @@ public abstract class Machinery extends Item{
 		this.ticked = machine.ticked;
 	}
 	
-	public int newXPos() {
+	@Override
+	public boolean died() { // stops machines from dying
+		return false;
+	}
+	
+	public int newXPos() { // calculates the machines next x position
 		if (this.direction.equals("r")) {
 			return this.xPos + 1;
 		}
@@ -35,7 +41,7 @@ public abstract class Machinery extends Item{
 		}
 	}
 	
-	public int newYPos() {
+	public int newYPos() { // calculates the machines next y position
 		if (this.direction.equals("d")) {
 			return this.yPos + 1;
 		}
@@ -48,7 +54,7 @@ public abstract class Machinery extends Item{
 	}
 	
 	@Override
-	public void clearTicked() {
+	public void clearTicked() { // used to clear ticked flag when it is a new turn
 		this.ticked = false;
 	}
 	

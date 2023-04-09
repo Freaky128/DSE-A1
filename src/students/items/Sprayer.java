@@ -5,11 +5,12 @@ public class Sprayer extends Machinery{
 	
 	public Sprayer(String dir, int x, int y, Item item) {
 		super(dir, x, y);
-		this.item = item;
+		this.item = item; // represents the item the machine is currently over the top of
 	}
 
-	public Sprayer(Machinery machine) {
+	public Sprayer(Sprayer machine) { // copy constructor
 		super(machine);
+		this.item = machine.item;
 	}
 	
 	public Item copy() {
@@ -21,39 +22,34 @@ public class Sprayer extends Machinery{
 	}
 	
 	@Override
-	public boolean died() {
-		return false;
-	}
-	
-	@Override
-	public Item[][] tick(Item[][] field) {
+	public Item[][] tick(Item[][] field) { // Overridden tick method used to kill weeds
 		
 		Item[][] fieldClone = field;
 		
 		this.age++;
 		
-		if (age > 1 && !this.ticked) {
+		if (this.age > 1 && !this.ticked) { // makes sure functionality doesn't occur if machine has just been created or if it has already been ticked this turn
 			if (this.item instanceof Weed) {
-				fieldClone[this.yPos][this.xPos] = new UntilledSoil();
+				fieldClone[this.yPos][this.xPos] = new UntilledSoil(); // replaces weeds with UntilledSoil
 			}
 			else {
-				fieldClone[this.yPos][this.xPos] = this.item;
+				fieldClone[this.yPos][this.xPos] = this.item; // if item wasn't a weed it is placed back into the field
 			}			
 			
-			int newXpos = this.newXPos();
+			int newXpos = this.newXPos(); // gets new coordinates
 			int newYpos = this.newYPos();
 			
-			if (newXpos >= 0 && newXpos < fieldClone[this.yPos].length && newYpos >= 0 && newYpos < fieldClone.length) {
-				item = fieldClone[newYpos][newXpos];
+			if (newXpos >= 0 && newXpos < fieldClone[this.yPos].length && newYpos >= 0 && newYpos < fieldClone.length) { // if new coordinates are in the field the next item is grabbed and the machine is moved forwards
+				this.item = fieldClone[newYpos][newXpos];
 				fieldClone[newYpos][newXpos] = this;
 			}
 			
-			this.xPos = newXpos;
+			this.xPos = newXpos; // updates position
 			this.yPos = newYpos;
 			
 			this.ticked = true;
 		}
 		
-		return fieldClone;
+		return fieldClone; // returns the modified field
 	}
 }

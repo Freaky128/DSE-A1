@@ -7,16 +7,16 @@ public class Soil extends Item{
 		this.value = 0;
 	}
 	
-	public Soil(Item soil) {
+	public Soil(Item soil) { // copy constructor
 		super(soil);
 	}
 	
-	public Item copy() {
-		return new Soil(this);
+	public Item copy() { // because each item implements its own copy function there is no chance of casting exceptions
+		return new Soil(this); // returns a copy of this object made with the copy constructor
 	}
 	
 	@Override
-	public void tick() {}
+	public void tick() {} // overriding tick to do nothing means soil will never die
 	
 	public String toString() {
 		return ".";

@@ -7,16 +7,16 @@ public class Weed extends Item{
 		this.value = -1;
 	}
 	
-	public Weed(Item weed) {
+	public Weed(Item weed) { // copy constructor
 		super(weed);
 	}
 	
-	public Item copy() {
-		return new Weed(this);
+	public Item copy() { // because each item implements its own copy function there is no chance of casting exceptions
+		return new Weed(this); // returns a copy of this object made with the copy constructor
 	}
 	
 	@Override
-	public void tick() {}
+	public void tick() {} // overriding tick to do nothing means weeds will never die
 	
 	public String toString() {
 		return "#";

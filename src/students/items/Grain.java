@@ -1,7 +1,7 @@
 package students.items;
 
 public class Grain extends Food{
-	private static int genNum = 0;
+	private static int genNum = 0; // Variable used to store the number of grain created
 	
 	public Grain() {
 		super();
@@ -11,12 +11,12 @@ public class Grain extends Food{
 		this.value = 2;
 	}
 	
-	public Grain(Item Grain) {
+	public Grain(Item Grain) { // copy constructor
 		super(Grain);
 	}
 	
-	public Item copy() {
-		return new Grain(this);
+	public Item copy() { // because each item implements its own copy function there is no chance of casting exceptions
+		return new Grain(this); // returns a copy of this object made with the copy constructor
 	}
 	
 	public String toString() {

@@ -1,7 +1,7 @@
 package students.items;
 
-public class PlowSeeder extends Machinery{
-	Item item;
+public class PlowSeeder extends Machinery{ // virtually the same as seeder except it will seed every position it passes
+	Item item;							   // refer to seeder for better comments
 	String seed;
 	int charge = 0;
 	
@@ -11,8 +11,11 @@ public class PlowSeeder extends Machinery{
 		this.seed = seed;
 	}
 
-	public PlowSeeder(Machinery machine) {
+	public PlowSeeder(PlowSeeder machine) {
 		super(machine);
+		this.item = machine.item;
+		this.seed = machine.seed;
+		this.charge = machine.charge;
 	}
 	
 	public Item copy() {
@@ -24,18 +27,13 @@ public class PlowSeeder extends Machinery{
 	}
 	
 	@Override
-	public boolean died() {
-		return false;
-	}
-	
-	@Override
 	public Item[][] tick(Item[][] field, int balance) {		
 		Item[][] fieldClone = field;
 		
 		this.age++;
 		
 		if (age > 1 && !this.ticked) {
-			if (this.seed.equals("a") && balance >= 2) {					
+			if (this.seed.equals("a") && balance >= 2) { // replaces item regardless of what it was except in the cast of insufficient funds					
 				fieldClone[this.yPos][this.xPos] = new Apples();
 				this.charge -= 2;
 			}
@@ -44,14 +42,14 @@ public class PlowSeeder extends Machinery{
 				this.charge -= 1;
 			}
 			else {
-				fieldClone[this.yPos][this.xPos] = this.item;
+				fieldClone[this.yPos][this.xPos] = this.item; // Insufficient funds case
 			}
 			
 			int newXpos = this.newXPos();
 			int newYpos = this.newYPos();
 			
 			if (newXpos >= 0 && newXpos < fieldClone[this.yPos].length && newYpos >= 0 && newYpos < fieldClone.length) {
-				item = fieldClone[newYpos][newXpos];
+				this.item = fieldClone[newYpos][newXpos];
 				fieldClone[newYpos][newXpos] = this;
 			}
 			

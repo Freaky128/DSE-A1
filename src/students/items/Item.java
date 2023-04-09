@@ -33,11 +33,11 @@ public abstract class Item {
 		this.age += 1;
 	}
 	
-	public Item[][] tick(Item[][] field) {
+	public Item[][] tick(Item[][] field) { // overload of tick needed for Machinery
 		return field;
 	}
 	
-	public Item[][] tick(Item[][] field, int balance) {
+	public Item[][] tick(Item[][] field, int balance) { // overload of tick needed for seeding Machinery
 		return field;
 	}
 	
@@ -63,16 +63,16 @@ public abstract class Item {
 		return (this.age == item.getAge() && this.matureAge == item.getMatureAge() && this.deathAge == item.getDeathAge() && this.getValue() == item.getValue());
 	}
 	
-	public void clearTicked() {
+	public void clearTicked() { // method needed for Machinery
 		
 	}
 	
-	public int getCharge() {
+	public int getCharge() { // method needed for Machinery
 		return 0;
 	}
 	
-	public abstract Item copy();
+	public abstract Item copy(); // copy function is used to avoid casting exceptions when copying items
 	
 	@Override
-	public abstract String toString();
+	public abstract String toString(); // overriden native method used to print items symbols
 }

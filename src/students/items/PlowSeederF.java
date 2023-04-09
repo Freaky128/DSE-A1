@@ -1,7 +1,7 @@
 package students.items;
 
-public class PlowSeederF extends Machinery{
-	Item item;
+public class PlowSeederF extends Machinery{ // virtually the same as PlowSeeder except it makes seeds mature quicker.
+	Item item;								// refer to Seeder or PlowSeeder for better comments
 	String seed;
 	int charge = 0;
 	
@@ -11,8 +11,11 @@ public class PlowSeederF extends Machinery{
 		this.seed = seed;
 	}
 
-	public PlowSeederF(Machinery machine) {
+	public PlowSeederF(PlowSeederF machine) {
 		super(machine);
+		this.item = machine.item;
+		this.seed = machine.seed;
+		this.charge = machine.charge;
 	}
 	
 	public Item copy() {
@@ -24,11 +27,6 @@ public class PlowSeederF extends Machinery{
 	}
 	
 	@Override
-	public boolean died() {
-		return false;
-	}
-	
-	@Override
 	public Item[][] tick(Item[][] field, int balance) {		
 		Item[][] fieldClone = field;
 		
@@ -37,12 +35,12 @@ public class PlowSeederF extends Machinery{
 		if (age > 1 && !this.ticked) {
 			if (this.seed.equals("a") && balance >= 2) {					
 				fieldClone[this.yPos][this.xPos] = new Apples();
-				fieldClone[this.yPos][this.xPos].setAge(1);
+				fieldClone[this.yPos][this.xPos].setAge(1); // "Fertilizes" seed by advancing it's age by 1
 				this.charge -= 2;
 			}
 			else if(balance >= 1) {
 				fieldClone[this.yPos][this.xPos] = new Grain();
-				fieldClone[this.yPos][this.xPos].setAge(1);
+				fieldClone[this.yPos][this.xPos].setAge(1); // "Fertilizes" seed by advancing it's age by 1
 				this.charge -= 1;
 			}
 			else {
