@@ -43,15 +43,8 @@ public class Field {
 		return clone;
 	}
 	
-	public boolean plant(int x, int y, Item item) {
-		//may need to move soil check up a level
-		if (field[y][x].equals(new Soil())) {
-			field[y][x] = item;
-			return true;
-		}
-		else {
-			return false;
-		}
+	public void plant(int x, int y, Item item) {
+		field[y][x] = item;
 	}
 	
 	public int getValue() {
@@ -94,6 +87,7 @@ public class Field {
 			}
 		}
 		
+		sumStr += "\n";
 		sumStr += String.format("%-15s", "Apples:");
 		sumStr += apples + "\n";
 		sumStr += String.format("%-15s", "Grain:");
@@ -116,7 +110,7 @@ public class Field {
 	public String toString() {
 		String fieldStr = new String();
 		
-		fieldStr += "  ";
+		fieldStr += "\n  ";
 		
 		for (int i = 1; i <= field[0].length; i++) {
 			fieldStr += String.format("%-2d", i);

@@ -50,6 +50,14 @@ public class Farm {
 					}
 					else if(Pattern.matches("[^thp]", command)) {
 						System.out.println("yes");
+						
+						if (command.equals("s")) {
+							this.summary();
+						}
+						else if(command.equals("q")) {
+							this.running = false;
+						}
+						
 						input.nextLine();
 						break;
 					}
@@ -62,6 +70,7 @@ public class Farm {
 					}
 					else {
 						System.out.println("yes2");
+						
 						if (command.equals("t")) {
 							this.till(x - 1, y - 1);
 						}
@@ -87,8 +96,10 @@ public class Farm {
 				}
 			}
 			
-			running = true;
+			this.field.tick();
 		}
+		
+		System.out.println("Thanks for playing!");
 	}
 	
 	public void till(int x, int y) {
@@ -96,10 +107,7 @@ public class Farm {
 	}
 	
 	public void harvest(int x, int y) throws InvalidInput{
-		System.out.println("harvest");
-		if (this.field.get(x, y) instanceof Food) {
-			System.out.println("harvest2");
-			
+		if (this.field.get(x, y) instanceof Food) {			
 			int value = this.field.get(x, y).getValue();
 			this.balance += value;
 			
@@ -123,35 +131,45 @@ public class Farm {
 		command = input.next();
 		
 		if (command.length() > 1) {
-			//input.close();
 			throw new InvalidInput("You must input a or g\n");
 		}
 		else if(Pattern.matches("[^ag]", command)) {
-			//input.close();
 			throw new InvalidInput("You must input a or g\n");
 		}
 		else {
+			
 			if (command.equals("a")) {
 				if (2 > this.balance) {
 					System.out.println("Insufficient funds\n");
 				}
-				else {
+				else if (this.field.get(x, y).equals(new Soil())){
 					this.field.plant(x, y, new Apples());
 					balance -= 2;
+				}
+				else {
+					throw new InvalidInput("Cannot plant: location isn't soil");
 				}
 			}
 			else {
 				if (1 > this.balance) {
 					System.out.println("Insufficient funds\n");
 				}
-				else {
+				else if (this.field.get(x, y).equals(new Soil())){
 					this.field.plant(x, y, new Grain());
 					balance -= 1;
 				}
+				else {
+					throw new InvalidInput("Cannot plant: location isn't soil");
+				}
+
 			}
 		}
 		
 		//input.close();
+	}
+	
+	public void summary() {
+		System.out.println(this.field.getSummary());
 	}
 	
 }

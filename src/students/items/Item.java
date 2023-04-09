@@ -42,7 +42,7 @@ public abstract class Item {
 	}
 	
 	public int getValue() {
-		if (this.age > this.matureAge) {
+		if (this.age >= this.matureAge) {
 			return this.value;
 		}
 		else {
