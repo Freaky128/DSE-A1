@@ -105,8 +105,15 @@ public class Farm {
 		System.out.println("Thanks for playing!");
 	}
 	
-	public void till(int x, int y) { // considered making it cost money to till weed or untilledSoil
-		this.field.till(x, y);		 // however it makes the game super hard
+	public void till(int x, int y) throws InvalidInput{  // considered making it cost money to till weed or untilledSoil
+		if (this.field.get(x, y) instanceof Machinery) { // however it makes the game super hard
+			throw new InvalidInput("x:" + (x + 1) + " y:" + (y + 1) + " is not tillable\n");
+		}
+		else {
+			this.field.till(x, y);		 
+		}
+		
+		
 	}
 	
 	public void harvest(int x, int y) throws InvalidInput{
