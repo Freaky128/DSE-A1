@@ -238,6 +238,9 @@ public class Farm {
 							this.field.plant(x - 1, y - 1, new Seeder(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
 						}
 					}
+					else if(command.equals("h")) {
+						this.field.plant(x - 1, y - 1, new Harvester(dir, x - 1, y - 1, field.get(x - 1, y - 1)));
+					}
 				}
 				
 				break;
