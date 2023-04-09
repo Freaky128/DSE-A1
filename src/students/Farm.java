@@ -262,6 +262,20 @@ public class Farm {
 							this.field.plant(x - 1, y - 1, new PlowSeeder(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
 						}
 					}
+					else if (command.equals("+")) {
+						System.out.println("\nEnter seed type a or g\n");
+						seed = input.next();
+						
+						if (seed.length() > 1) {
+							throw new InvalidInput("You must input a or g\n");
+						}
+						else if(Pattern.matches("[^ag]", seed)) {
+							throw new InvalidInput("You must input a or g\n");
+						}
+						else {
+							this.field.plant(x - 1, y - 1, new PlowSeederF(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
+						}
+					}
 				}
 				
 				break;
