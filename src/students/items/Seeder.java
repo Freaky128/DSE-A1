@@ -44,6 +44,9 @@ public class Seeder extends Machinery{
 					fieldClone[this.yPos][this.xPos] = new Grain();
 					this.charge -= 1;
 				}
+				else {
+					fieldClone[this.yPos][this.xPos] = this.item;
+				}
 				
 			}
 			else {

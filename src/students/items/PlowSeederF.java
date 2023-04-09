@@ -20,7 +20,7 @@ public class PlowSeederF extends Machinery{
 	}
 	
 	public String toString() {
-		return "C";
+		return "+";
 	}
 	
 	@Override
@@ -44,6 +44,9 @@ public class PlowSeederF extends Machinery{
 				fieldClone[this.yPos][this.xPos] = new Grain();
 				fieldClone[this.yPos][this.xPos].setAge(1);
 				this.charge -= 1;
+			}
+			else {
+				fieldClone[this.yPos][this.xPos] = this.item;
 			}
 			
 			int newXpos = this.newXPos();

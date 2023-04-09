@@ -26,7 +26,7 @@ public class Field {
 					}
 				}
 				
-				if (field[i][j] instanceof Seeder) {
+				if (field[i][j] instanceof Seeder || field[i][j] instanceof PlowSeeder || field[i][j] instanceof PlowSeederF) {
 					field = field[i][j].tick(this.field, balance);
 				}
 				else if (field[i][j] instanceof Machinery) {
