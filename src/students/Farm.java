@@ -98,7 +98,8 @@ public class Farm {
 				}
 			}
 			
-			this.field.tick();
+			this.field.tick(this.balance);
+			this.balance += this.field.getCharge();
 		}
 		
 		System.out.println("Thanks for playing!");
@@ -227,14 +228,14 @@ public class Farm {
 						System.out.println("\nEnter seed type a or g\n");
 						seed = input.next();
 						
-						if (command.length() > 1) {
+						if (seed.length() > 1) {
 							throw new InvalidInput("You must input a or g\n");
 						}
-						else if(Pattern.matches("[^ag]", command)) {
+						else if(Pattern.matches("[^ag]", seed)) {
 							throw new InvalidInput("You must input a or g\n");
 						}
 						else {
-							
+							this.field.plant(x - 1, y - 1, new Seeder(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
 						}
 					}
 				}

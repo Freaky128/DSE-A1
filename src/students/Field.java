@@ -15,12 +15,21 @@ public class Field {
 		}
 	}
 	
-	public void tick() {
+	public void tick(int balance) {
 		Random rand = new Random();
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				
-				if (field[i][j] instanceof Machinery) {
+				if (field[i][j].equals(new Soil())) { // this is correct in terms of the assignment spec wording
+					if (rand.nextInt(100) < 20) {	  // however it makes the game quite hard as the field is overrun
+						field[i][j] = new Weed();	  // with weeds after 5-7 turns
+					}
+				}
+				
+				if (field[i][j] instanceof Seeder) {
+					field = field[i][j].tick(this.field, balance);
+				}
+				else if (field[i][j] instanceof Machinery) {
 					field = field[i][j].tick(this.field);
 				}
 				else {
@@ -30,12 +39,7 @@ public class Field {
 				if (field[i][j].died()) {
 					field[i][j] = new UntilledSoil();
 				}
-				
-				if (field[i][j].equals(new Soil())) { // this is correct in terms of the assignment spec wording
-					if (rand.nextInt(100) < 20) {	  // however it makes the game quite hard as the field is overrun
-						field[i][j] = new Weed();	  // with weeds after 5-7 turns
-					}
-				}
+			
 			}
 		}
 		
@@ -116,6 +120,21 @@ public class Field {
 		sumStr += "Total grain created: " + Grain.getGenerationCount() + "\n";
 		
 		return sumStr;
+	}
+	
+	public int getCharge() {
+		int sum = 0;
+		
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				
+				if (field[i][j] instanceof Machinery) {
+					sum += field[i][j].getCharge();
+				}
+			}
+		}
+		
+		return sum;
 	}
 
 	@Override

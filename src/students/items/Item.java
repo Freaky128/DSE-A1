@@ -37,6 +37,10 @@ public abstract class Item {
 		return field;
 	}
 	
+	public Item[][] tick(Item[][] field, int balance) {
+		return field;
+	}
+	
 	public void setAge(int age) {
 		this.age = age;
 	}
@@ -61,6 +65,10 @@ public abstract class Item {
 	
 	public void clearTicked() {
 		
+	}
+	
+	public int getCharge() {
+		return 0;
 	}
 	
 	public abstract Item copy();
