@@ -226,10 +226,24 @@ public class Farm {
 				}
 				else {
 					if (command.equals("w")) {
-						this.field.plant(x - 1, y - 1, new Sprayer(dir, x - 1, y - 1, field.get(x - 1, y - 1)));
+						if(this.balance >= 5) {
+							this.field.plant(x - 1, y - 1, new Sprayer(dir, x - 1, y - 1, field.get(x - 1, y - 1)));
+							this.balance -= 5;
+						}
+						else {
+							System.out.println("You have insufficent funds\n");
+						}						
+						
 					}
 					else if(command.equals("p")) {
-						this.field.plant(x - 1, y - 1, new Plow(dir, x - 1, y - 1));
+						if(this.balance >= 5) {
+							this.field.plant(x - 1, y - 1, new Plow(dir, x - 1, y - 1));
+							this.balance -= 10;
+						}
+						else {
+							System.out.println("You have insufficent funds\n");
+						}						
+						
 					}
 					else if(command.equals("s")) {
 						System.out.println("\nEnter seed type a or g\n");
@@ -242,11 +256,25 @@ public class Farm {
 							throw new InvalidInput("You must input a or g\n");
 						}
 						else {
-							this.field.plant(x - 1, y - 1, new Seeder(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
+							if(this.balance >= 5) {
+								this.field.plant(x - 1, y - 1, new Seeder(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
+								this.balance -= 10;
+							}
+							else {
+								System.out.println("You have insufficent funds\n");
+							}							
+							
 						}
 					}
 					else if(command.equals("h")) {
-						this.field.plant(x - 1, y - 1, new Harvester(dir, x - 1, y - 1, field.get(x - 1, y - 1)));
+						if(this.balance >= 5) {
+							this.field.plant(x - 1, y - 1, new Harvester(dir, x - 1, y - 1, field.get(x - 1, y - 1)));
+							this.balance -= 10;
+						}
+						else {
+							System.out.println("You have insufficent funds\n");
+						}						
+						
 					}
 					else if(command.equals("c")) {
 						System.out.println("\nEnter seed type a or g\n");
@@ -259,7 +287,14 @@ public class Farm {
 							throw new InvalidInput("You must input a or g\n");
 						}
 						else {
-							this.field.plant(x - 1, y - 1, new PlowSeeder(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
+							if(this.balance >= 5) {
+								this.field.plant(x - 1, y - 1, new PlowSeeder(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
+								this.balance -= 15;
+							}
+							else {
+								System.out.println("You have insufficent funds\n");
+							}							
+							
 						}
 					}
 					else if (command.equals("+")) {
@@ -273,7 +308,14 @@ public class Farm {
 							throw new InvalidInput("You must input a or g\n");
 						}
 						else {
-							this.field.plant(x - 1, y - 1, new PlowSeederF(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
+							if(this.balance >= 5) {
+								this.field.plant(x - 1, y - 1, new PlowSeederF(dir, x - 1, y - 1, field.get(x - 1, y - 1), seed));
+								this.balance -= 20;
+							}
+							else {
+								System.out.println("You have insufficent funds\n");
+							}							
+							
 						}
 					}
 				}
