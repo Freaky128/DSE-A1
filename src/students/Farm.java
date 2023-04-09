@@ -49,7 +49,6 @@ public class Farm {
 						throw new InvalidInput("You must input t,h,p,s,w or q\n");
 					}
 					else if(Pattern.matches("[^thp]", command)) {
-						System.out.println("yes");
 						
 						if (command.equals("s")) {
 							this.summary();
@@ -69,7 +68,6 @@ public class Farm {
 						throw new InvalidInput("Entered coordinates are out of range\n");
 					}
 					else {
-						System.out.println("yes2");
 						
 						if (command.equals("t")) {
 							this.till(x - 1, y - 1);
@@ -102,8 +100,8 @@ public class Farm {
 		System.out.println("Thanks for playing!");
 	}
 	
-	public void till(int x, int y) {
-		this.field.till(x, y);
+	public void till(int x, int y) { // considered making it cost money to till weed or untilledSoil
+		this.field.till(x, y);		 // however it makes the game super hard
 	}
 	
 	public void harvest(int x, int y) throws InvalidInput{

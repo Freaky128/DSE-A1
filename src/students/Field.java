@@ -25,9 +25,9 @@ public class Field {
 					field[i][j] = new UntilledSoil();
 				}
 				
-				if (field[i][j].equals(new Soil())) {
-					if (rand.nextInt(100) < 20) {
-						field[i][j] = new Weed();
+				if (field[i][j].equals(new Soil())) { // this is correct in terms of the assignment spec wording
+					if (rand.nextInt(100) < 20) {	  // however it makes the game quite hard as the field is overrun
+						field[i][j] = new Weed();	  // with weeds after 6-7 turns
 					}
 				}
 			}
